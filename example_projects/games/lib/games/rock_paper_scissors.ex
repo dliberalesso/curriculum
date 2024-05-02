@@ -17,12 +17,18 @@ defmodule Games.RockPaperScissors do
 
     message =
       cond do
-        ai_choice == player_choice -> "It's a tie!"
+        ai_choice == player_choice ->
+          "It's a tie!"
+
         beats?(player_choice, ai_choice) ->
           Games.ScoreTracker.add_points(10)
           "You win!"
-        beats?(ai_choice, player_choice) -> "You lose!"
-        true -> "Invalid choice!"
+
+        beats?(ai_choice, player_choice) ->
+          "You lose!"
+
+        true ->
+          "Invalid choice!"
       end
 
     IO.puts(message)

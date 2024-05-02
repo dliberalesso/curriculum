@@ -5,7 +5,7 @@ defmodule BlogWeb.UserRegistrationController do
   alias Blog.Accounts.User
   alias BlogWeb.UserAuth
 
-  plug :page_title
+  plug(:page_title)
 
   def new(conn, _params) do
     changeset = Accounts.change_user_registration(%User{})

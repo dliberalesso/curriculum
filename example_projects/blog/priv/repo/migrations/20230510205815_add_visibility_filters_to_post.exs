@@ -3,11 +3,11 @@ defmodule Blog.Repo.Migrations.AddVisibilityFiltersToPost do
 
   def change do
     alter table(:posts) do
-      remove :subtitle
-      add :visible, :boolean, default: true
-      add :published_on, :utc_datetime
+      remove(:subtitle)
+      add(:visible, :boolean, default: true)
+      add(:published_on, :utc_datetime)
     end
 
-    create unique_index(:posts, [:title])
+    create(unique_index(:posts, [:title]))
   end
 end

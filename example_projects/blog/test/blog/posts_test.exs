@@ -87,8 +87,12 @@ defmodule Blog.PostsTest do
 
     test "get_post!/1 loads the cover_image association" do
       user = user_fixture()
-      post = post_fixture(user_id: user.id, cover_image: %{url: "http://www.example.com/image.png"})
-      assert %CoverImage{url: "http://www.example.com/image.png"} = Posts.get_post!(post.id).cover_image
+
+      post =
+        post_fixture(user_id: user.id, cover_image: %{url: "http://www.example.com/image.png"})
+
+      assert %CoverImage{url: "http://www.example.com/image.png"} =
+               Posts.get_post!(post.id).cover_image
     end
 
     test "get_post!/1 loads the tags association" do
@@ -148,7 +152,9 @@ defmodule Blog.PostsTest do
       }
 
       assert {:ok, %Post{} = post} = Posts.create_post(valid_attrs)
-      assert %CoverImage{url: "https://www.example.com/image.png"} = Repo.preload(post, :cover_image).cover_image
+
+      assert %CoverImage{url: "https://www.example.com/image.png"} =
+               Repo.preload(post, :cover_image).cover_image
     end
 
     test "create_post/1 with tags" do
@@ -206,15 +212,25 @@ defmodule Blog.PostsTest do
       user = user_fixture()
       post = post_fixture(user_id: user.id)
 
-      assert {:ok, %Post{} = post} = Posts.update_post(post, %{cover_image: %{url: "https://www.example.com/image2.png"}})
+      assert {:ok, %Post{} = post} =
+               Posts.update_post(post, %{
+                 cover_image: %{url: "https://www.example.com/image2.png"}
+               })
+
       assert post.cover_image.url == "https://www.example.com/image2.png"
     end
 
     test "update_post/1 update existing image" do
       user = user_fixture()
-      post = post_fixture(user_id: user.id, cover_image: %{url: "https://www.example.com/image.png"})
 
-      assert {:ok, %Post{} = post} = Posts.update_post(post, %{cover_image: %{url: "https://www.example.com/image2.png"}})
+      post =
+        post_fixture(user_id: user.id, cover_image: %{url: "https://www.example.com/image.png"})
+
+      assert {:ok, %Post{} = post} =
+               Posts.update_post(post, %{
+                 cover_image: %{url: "https://www.example.com/image2.png"}
+               })
+
       assert post.cover_image.url == "https://www.example.com/image2.png"
     end
 
@@ -246,7 +262,10 @@ defmodule Blog.PostsTest do
 
     test "delete_post/1 deletes post and cover image" do
       user = user_fixture()
-      post = post_fixture(user_id: user.id, cover_image: %{url: "https://www.example.com/image.png"})
+
+      post =
+        post_fixture(user_id: user.id, cover_image: %{url: "https://www.example.com/image.png"})
+
       assert {:ok, %Post{}} = Posts.delete_post(post)
       assert_raise Ecto.NoResultsError, fn -> Posts.get_post!(post.id) end
       assert_raise Ecto.NoResultsError, fn -> Repo.get!(CoverImage, post.cover_image.id) end

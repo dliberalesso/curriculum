@@ -3,7 +3,7 @@ defmodule PicChat.Repo.Migrations.CreateMessages do
 
   def change do
     create table(:messages) do
-      add :content, :text
+      add(:content, :text)
 
       timestamps()
     end

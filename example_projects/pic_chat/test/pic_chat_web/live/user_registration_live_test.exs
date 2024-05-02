@@ -43,7 +43,9 @@ defmodule PicChatWeb.UserRegistrationLiveTest do
       email = unique_user_email()
 
       form =
-        form(lv, "#registration_form", user: valid_user_attributes(email: email, subscribed: true))
+        form(lv, "#registration_form",
+          user: valid_user_attributes(email: email, subscribed: true)
+        )
 
       render_submit(form)
       conn = follow_trigger_action(form, conn)

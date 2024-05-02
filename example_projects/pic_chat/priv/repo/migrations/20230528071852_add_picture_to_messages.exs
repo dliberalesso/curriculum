@@ -3,7 +3,7 @@ defmodule PicChat.Repo.Migrations.AddPictureToMessages do
 
   def change do
     alter table(:messages) do
-      add :picture, :text
+      add(:picture, :text)
     end
   end
 end

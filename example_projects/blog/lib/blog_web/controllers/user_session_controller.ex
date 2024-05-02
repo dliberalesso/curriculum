@@ -4,7 +4,7 @@ defmodule BlogWeb.UserSessionController do
   alias Blog.Accounts
   alias BlogWeb.UserAuth
 
-  plug :page_title
+  plug(:page_title)
 
   def new(conn, _params) do
     render(conn, :new, error_message: nil)

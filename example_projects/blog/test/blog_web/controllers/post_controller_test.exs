@@ -126,7 +126,10 @@ defmodule BlogWeb.PostControllerTest do
       assert redirected_to(conn) == ~p"/posts/#{id}"
 
       conn = get(conn, ~p"/posts/#{id}")
-      assert %CoverImage{url: "https://www.example.com/image.png"} = Posts.get_post!(id).cover_image
+
+      assert %CoverImage{url: "https://www.example.com/image.png"} =
+               Posts.get_post!(id).cover_image
+
       assert html_response(conn, 200) =~ "https://www.example.com/image.png"
     end
 
@@ -199,14 +202,21 @@ defmodule BlogWeb.PostControllerTest do
       user = user_fixture()
       post = post_fixture(user_id: user.id)
       conn = log_in_user(conn, user)
-      conn = put(conn, ~p"/posts/#{post}", post: %{cover_image: %{url: "https://www.example.com/image.png"}})
+
+      conn =
+        put(conn, ~p"/posts/#{post}",
+          post: %{cover_image: %{url: "https://www.example.com/image.png"}}
+        )
+
       assert redirected_to(conn) == ~p"/posts/#{post}"
 
       conn = get(conn, ~p"/posts/#{post}")
-      assert %CoverImage{url: "https://www.example.com/image.png"} = Posts.get_post!(post.id).cover_image
+
+      assert %CoverImage{url: "https://www.example.com/image.png"} =
+               Posts.get_post!(post.id).cover_image
+
       assert html_response(conn, 200) =~ "https://www.example.com/image.png"
     end
-
 
     test "with tags", %{conn: conn} do
       user = user_fixture()
@@ -249,20 +259,23 @@ defmodule BlogWeb.PostControllerTest do
       conn = conn |> log_in_user(user) |> delete(~p"/posts/#{post}")
       assert redirected_to(conn) == ~p"/posts"
 
-      assert_error_sent 404, fn ->
+      assert_error_sent(404, fn ->
         get(conn, ~p"/posts/#{post}")
-      end
+      end)
     end
 
     test "deletes chosen post with cover image", %{conn: conn} do
       user = user_fixture()
-      post = post_fixture(user_id: user.id, cover_image: %{url: "https://www.example.com/image.png"})
+
+      post =
+        post_fixture(user_id: user.id, cover_image: %{url: "https://www.example.com/image.png"})
+
       conn = conn |> log_in_user(user) |> delete(~p"/posts/#{post}")
       assert redirected_to(conn) == ~p"/posts"
 
-      assert_error_sent 404, fn ->
+      assert_error_sent(404, fn ->
         get(conn, ~p"/posts/#{post}")
-      end
+      end)
     end
 
     test "a user cannot delete another user's post", %{conn: conn} do

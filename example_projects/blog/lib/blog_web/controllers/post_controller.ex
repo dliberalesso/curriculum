@@ -8,7 +8,7 @@ defmodule BlogWeb.PostController do
   alias Blog.Tags
 
   plug(:require_user_owns_post when action in [:edit, :update, :delete])
-  plug :page_title
+  plug(:page_title)
 
   def index(conn, %{"title" => title}) do
     posts = Posts.list_posts(title)
@@ -27,6 +27,7 @@ defmodule BlogWeb.PostController do
 
   def create(conn, %{"post" => post_params}) do
     tags = Map.get(post_params, "tag_ids", []) |> Enum.map(&Tags.get_tag!/1)
+
     case Posts.create_post(post_params, tags) do
       {:ok, post} ->
         conn
@@ -107,7 +108,6 @@ defmodule BlogWeb.PostController do
       [key: tag.name, value: tag.id, selected: tag.id in selected_ids]
     end)
   end
-
 
   defp page_title(conn, _params), do: assign(conn, :page_title, "Posts")
 end

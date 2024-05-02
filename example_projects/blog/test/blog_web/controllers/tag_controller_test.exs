@@ -71,9 +71,9 @@ defmodule BlogWeb.TagControllerTest do
       conn = delete(conn, ~p"/tags/#{tag}")
       assert redirected_to(conn) == ~p"/tags"
 
-      assert_error_sent 404, fn ->
+      assert_error_sent(404, fn ->
         get(conn, ~p"/tags/#{tag}")
-      end
+      end)
     end
   end
 

@@ -4,8 +4,8 @@ defmodule BlogWeb.CommentController do
   alias Blog.Comments
   alias Blog.Posts
 
-  plug :put_view, BlogWeb.PostHTML
-  plug :require_user_owns_comment when action in [:update, :delete]
+  plug(:put_view, BlogWeb.PostHTML)
+  plug(:require_user_owns_comment when action in [:update, :delete])
 
   def create(conn, %{"comment" => comment_params}) do
     case Comments.create_comment(comment_params) do

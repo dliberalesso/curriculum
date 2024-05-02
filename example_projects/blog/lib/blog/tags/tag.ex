@@ -3,7 +3,7 @@ defmodule Blog.Tags.Tag do
   import Ecto.Changeset
 
   schema "tags" do
-    field :name, :string
+    field(:name, :string)
     many_to_many(:posts, Blog.Posts.Post, join_through: "posts_tags")
 
     timestamps()

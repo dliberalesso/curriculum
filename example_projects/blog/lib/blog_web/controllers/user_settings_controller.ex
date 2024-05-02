@@ -4,7 +4,7 @@ defmodule BlogWeb.UserSettingsController do
   alias Blog.Accounts
   alias BlogWeb.UserAuth
 
-  plug :assign_email_and_password_changesets
+  plug(:assign_email_and_password_changesets)
 
   def edit(conn, _params) do
     render(conn, :edit)

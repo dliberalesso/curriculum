@@ -4,7 +4,7 @@ defmodule BlogWeb.TagController do
   alias Blog.Tags
   alias Blog.Tags.Tag
 
-  plug :page_title
+  plug(:page_title)
 
   def index(conn, _params) do
     tags = Tags.list_tags()

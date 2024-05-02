@@ -3,8 +3,8 @@ defmodule Blog.Posts.CoverImage do
   import Ecto.Changeset
 
   schema "cover_images" do
-    field :url, :string
-    belongs_to :post, Blog.Posts.Post
+    field(:url, :string)
+    belongs_to(:post, Blog.Posts.Post)
 
     timestamps()
   end

@@ -3,9 +3,9 @@ defmodule PicChat.Chat.Message do
   import Ecto.Changeset
 
   schema "messages" do
-    field :content, :string
-    field :picture, :string
-    belongs_to :user, PicChat.Accounts.User
+    field(:content, :string)
+    field(:picture, :string)
+    belongs_to(:user, PicChat.Accounts.User)
 
     timestamps()
   end
